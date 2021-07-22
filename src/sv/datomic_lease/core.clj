@@ -68,7 +68,8 @@
   [{:keys [e a con ttl-ms]}]
   (when-not (d/entid (d/db con)
                      :fn/lease)
-    @(d/transact transaction-functions))
+    @(d/transact con
+                 transaction-functions))
   (let [state (atom {:uuid nil})]
     {:lease (fn []
               (let [new-v (d/squuid)
